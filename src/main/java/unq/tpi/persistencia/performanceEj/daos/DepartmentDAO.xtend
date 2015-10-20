@@ -11,6 +11,12 @@ class DepartmentDAO {
 		session.createQuery("from Department where name = :name")
 				.setParameter("name", name).uniqueResult() as Department
 	}
+	
+	def getByNameWithJoin(String name) {
+		val session = SessionManager.getSession()
+		session.createQuery("from Department depto join fetch depto.employees join fetch depto.historicEmployees where depto.name = :name")
+				.setParameter("name", name).uniqueResult() as Department
+	}
 
 	def getByCode(String num) {
 		val session = SessionManager.getSession()

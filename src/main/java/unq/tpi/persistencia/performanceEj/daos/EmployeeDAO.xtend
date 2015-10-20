@@ -13,6 +13,16 @@ class EmployeeDAO {
 				.setParameter("lastName", lastName)
 				.uniqueResult() as Employee
 	}
+	
+	def getByNameWithSalariesAndHistoricDepartments(String name, String lastName) {
+		val session = SessionManager.getSession()
+		session.createQuery("from Employee empleados 
+								join empleados.salaries
+							where empleados.firstName = :name and empleados.lastName = :lastName")
+				.setParameter("name", name)
+				.setParameter("lastName", lastName)
+				.uniqueResult() as Employee
+	}
 
 	def getAll() {
 		val session = SessionManager.getSession()
