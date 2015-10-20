@@ -10,7 +10,7 @@ class DepartmentDAOTest {
 	@Test
 	def void testFields() throws Exception {
 		SessionManager.runInSession([
-			val d = new DepartmentDAO().getByName("Finance");		
+			val d = new DepartmentDAO().getByNameWithJoin("Finance");		
 			Assert.assertNotNull(d);
 			Assert.assertEquals("d002", d.code);
 			Assert.assertEquals(12437, d.employees.length);
