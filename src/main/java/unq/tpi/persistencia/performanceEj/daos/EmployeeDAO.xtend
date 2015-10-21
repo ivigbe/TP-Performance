@@ -8,7 +8,19 @@ class EmployeeDAO {
 
 	def getByName(String name, String lastName) {
 		val session = SessionManager.getSession()
-		session.createQuery("from Employee where firstName = :name and lastName = :lastName")
+		session.createQuery("from Employee empleados 
+								join fetch empleados.salaries 
+							 where empleados.firstName = :name and empleados.lastName = :lastName")
+				.setParameter("name", name)
+				.setParameter("lastName", lastName)
+				.uniqueResult() as Employee
+	}
+	
+	def getByNameWithSalariesAndHistoricDepartments(String name, String lastName) {
+		val session = SessionManager.getSession()
+		session.createQuery("from Employee empleados 
+								join empleados.salaries
+							where empleados.firstName = :name and empleados.lastName = :lastName")
 				.setParameter("name", name)
 				.setParameter("lastName", lastName)
 				.uniqueResult() as Employee

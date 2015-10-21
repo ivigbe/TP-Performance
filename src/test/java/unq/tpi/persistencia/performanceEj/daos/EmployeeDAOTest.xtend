@@ -12,7 +12,7 @@ class EmployeeDAOTest {
 	@Test
 	def void testFields() throws Exception {
 		SessionManager.runInSession([
-			val e = new EmployeeDAO().getByName("Parto", "Hitomi");
+			val e = new EmployeeDAO().getByNameWithSalariesAndHistoricDepartments("Parto", "Hitomi");
 			val sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 			Assert.assertNotNull(e);
