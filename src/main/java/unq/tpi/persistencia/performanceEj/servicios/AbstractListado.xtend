@@ -70,7 +70,7 @@ abstract class AbstractListado {
 		this
 	}
 
-	protected def addColumn(Number col) throws Exception {
+	 def addColumn(Number col) throws Exception {
 		fw.append(String.valueOf(col)).append(COLUMN_SEPARATOR)
 		this
 	}
@@ -83,7 +83,7 @@ abstract class AbstractListado {
 		}
 	}
 	
-	protected def newLine() throws Exception{
+	 def newLine() throws Exception{
 		fw.append(LINE_SEPARATOR)
 		this
 	}
