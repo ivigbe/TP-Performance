@@ -15,20 +15,16 @@ class EmployeeDAO {
 				.setParameter("lastName", lastName)
 				.uniqueResult() as Employee
 	}
-	
-	def getByNameWithSalariesAndHistoricDepartments(String name, String lastName) {
-		val session = SessionManager.getSession()
-		session.createQuery("from Employee empleados 
-								join empleados.salaries
-							where empleados.firstName = :name and empleados.lastName = :lastName")
-				.setParameter("name", name)
-				.setParameter("lastName", lastName)
-				.uniqueResult() as Employee
-	}
 
 	def getAll() {
 		val session = SessionManager.getSession()
 		session.createCriteria(Employee).list() as List<Employee>
+	}
+	
+	def getEmployeesByMaxSalaries()
+	{
+		val session = SessionManager.session
+		session.createQuery("from Employee empl where empl.salaries in (select max(empl.salaries) from Employee e order by e.firstName desc)").list() as List<Employee>
 	}
 
 	def getByCode(int id) {
