@@ -10,26 +10,31 @@ class DepartmentDAO {
 		val session = SessionManager.getSession()
 		session.createQuery("from Department where name = :name").setParameter("name", name).
 			uniqueResult() as Department
-	}
+		}
 
-	def getByNameWithJoin(String name) {
-		val session = SessionManager.getSession()
-		session.createQuery(
-			"from Department depto 
+		def getByNameWithJoin(String name) {
+			val session = SessionManager.getSession()
+			session.createQuery(
+				"from Department depto 
 				join fetch depto.employees 
 			where depto.name = :name"
-		).setParameter("name", name).uniqueResult() as Department
-	}
-	
+			).setParameter("name", name).uniqueResult() as Department
+		}
 
-	def getByCode(String num) {
-		val session = SessionManager.getSession()
-		session.get(Department, num) as Department
-	}
+		def getByCode(String num) {
+			val session = SessionManager.getSession()
+			session.get(Department, num) as Department
+		}
 
-	def getAll() {
-		val session = SessionManager.getSession()
-		session.createCriteria(Department).list() as List<Department>
-	}
+		def getDepartmentByCode(String num) {
+			
+			val session = SessionManager.session
+			session.createQuery("from Department dept join fetch dept.employees where dept.code = :c").setParameter("c", num).uniqueResult() as Department
+		}
 
-}
+		def getAll() {
+			val session = SessionManager.getSession()
+			session.createCriteria(Department).list() as List<Department>
+		}
+
+	}
