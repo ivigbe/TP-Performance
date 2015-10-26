@@ -24,7 +24,7 @@ class EmployeeDAO {
 	def getEmployeesByMaxSalaries()
 	{
 		val session = SessionManager.session
-		session.createQuery("select s.employee from Salary s group by s.amount order by max(s.amount) desc)").list() as List<Employee>
+		session.createQuery("select s.employee from Salary as s where s.to = '9999-01-01' order by s.amount desc").setMaxResults(10).list() as List<Employee>
 	}
 
 	def getByCode(int id) {
